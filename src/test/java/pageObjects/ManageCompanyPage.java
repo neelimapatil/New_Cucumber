@@ -250,6 +250,7 @@ public class ManageCompanyPage {
 		try
 		{
 			OBJ_TOTAL_EMPLOYEE.sendKeys(strName);
+			System.out.println("test");
 		}
 		catch(Exception e)
 		{

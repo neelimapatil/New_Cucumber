@@ -39,7 +39,9 @@ public class WebDriverManager {
 	 
 	 private WebDriver createLocalDriver() {
 	        switch (driverType) {     
-	        case FIREFOX : driver = new FirefoxDriver();
+	        case FIREFOX : 
+	        System.setProperty("webdriver.gecko.driver",FileReaderManager.getInstance().getConfigReader().getDriverPath());
+	        driver = new FirefoxDriver();
 	      break;
 	        case CHROME : 
 	         System.setProperty(CHROME_DRIVER_PROPERTY, FileReaderManager.getInstance().getConfigReader().getDriverPath());

@@ -3,8 +3,8 @@ package stepDefinition;
 import cucumber.ScenarioContext;
 import cucumber.TestContext;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import pageObjects.HomePage;
 import pageObjects.ManageCompanyPage;
 import enums.Context;
 
@@ -26,6 +26,7 @@ public class ManageCompany {
 	@And("^User enters Company name as \"([^\"]*)\"$")
 	public void user_enters_Company_name_as(String strCompanyName) throws InterruptedException {
 		objManageCompanyPage.EnterComName(strCompanyName);
+		testContext.getScenarioContext().setContext(Context.COMPANY_NAME,strCompanyName);
 	}
 
 	@And("^User selects Company type as \"([^\"]*)\"$")
@@ -62,6 +63,10 @@ public class ManageCompany {
 	public void user_enters_Tin_details_as(String strCoTin) throws InterruptedException {
 		objManageCompanyPage.EnterTin(strCoTin);
 	}
+	@And("^User enters Mobile details as \"([^\"]*)\"$")
+	public void user_enters_Mobile_details_as(String strMobile) throws InterruptedException {
+		objManageCompanyPage.EnterMobile(strMobile);
+	}
 
 	@And("^User enters Country as \"([^\"]*)\"$")
 	public void user_enters_Country_as(String strCountry) throws InterruptedException {
@@ -86,12 +91,23 @@ public class ManageCompany {
 	@And("^User clicks on Save button$")
 	public void user_clicks_on_Save_button() {
 		objManageCompanyPage.ClickOnSaveButton();
-	}
+		}
 	@When("^user deletes the company$")
 	public void user_deletes_the_company()
 	{
+		Object strConame = testContext.getScenarioContext().getContext(Context.COMPANY_NAME);
+		System.out.println(strConame.toString());
 		objManageCompanyPage.ClickOnDeleteButton();
-		
 	}
-	
+	@Then("^user selects the newly created company to Edit$")
+	public void user_selects_Co_ToEdit()
+	{
+		//Object strConame = testContext.getScenarioContext().getContext(Context.COMPANY_NAME);
+		objManageCompanyPage.ClickOnEditButton();
+	}
+	@And("^change the mobile no to \"([^\"]*)\"$")
+	public void user_edits_mobile_no(String strMobileNo) throws InterruptedException
+	{
+		objManageCompanyPage.EnterMobile(strMobileNo);
+	}
 }

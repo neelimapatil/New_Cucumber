@@ -7,10 +7,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pageObjects.HomePage;
+import dataProvider.*;
 
 public class Home {
 	HomePage objHomePage;
 	TestContext testContext;
+	Hooks objScreenshot;
 	
 	public Home(TestContext context) {
 		testContext = context;

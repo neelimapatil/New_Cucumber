@@ -14,7 +14,7 @@ import managers.FileReaderManager;
  
 @RunWith(Cucumber.class)
 @CucumberOptions(
- features = {"src/test/resources/Features/Create_Company.feature"},
+ features = {"src/test/resources/Features/Edit_company.feature"},
  glue = {"stepDefinition"},//path of the definition/methods file/class stepDefinitions
  format = {"pretty"},
  plugin = {"junit:target/cucumber-reports/cucumber.xml","html:target/cucumber-reports",
@@ -30,7 +30,7 @@ public class TestRunner {
 	     Reporter.setSystemInfo("User Name", System.getProperty("user.name"));
 	     Reporter.setSystemInfo("Time Zone", System.getProperty("user.timezone"));
 	     Reporter.setSystemInfo("Machine", "Windows 10" + "64 Bit");
-	     Reporter.setSystemInfo("Selenium", "2.53.0");
+	     Reporter.setSystemInfo("Selenium", "3.14.0");
 	     Reporter.setSystemInfo("Maven", "3.x.y");
 	     Reporter.setSystemInfo("Java Version", "1.8.0_40");
 	}

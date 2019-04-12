@@ -9,6 +9,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import dataProvider.ConfigFileReader;
 import junit.framework.Assert;
+import utils.Config;
+import utils.HTMLReportGenerator;
+import utils.Screenshot;
 
 public class LoginPage {
 		 
@@ -38,10 +41,18 @@ public class LoginPage {
 		txtbx_Password.sendKeys(strPassword);
 		Thread.sleep(4000);
 		btn_Login.click();
+		Config.strOp= "Status:=PASS,Method:=doUserLoginByRole,Parmeters:=strUserName"+strUserName+",strPassword"+strPassword+",strRole"+strRole+",Note:Able to login to the application";
+		Config.logger.info(Config.strOp);
+		Screenshot.CaptureScreenshot(Config.strScreenShotFolderPath, "doUserLoginByRole",this.driver);
+		HTMLReportGenerator.StepDetails("PASS", "doUserLoginByRole", "Successfully Able to login to the application", Config.strScreenShotFileName);
 		}
 		catch (Exception e)
 		{
 			System.err.println(e.getMessage());
+			Config.strOp= "Status:=FAIL,Method:=doUserLoginByRole,Parmeters:=strUserName"+strUserName+",strPassword"+strPassword+",strRole"+strRole+",Note:Unable to login to the application";
+			Config.logger.info(Config.strOp);
+			Screenshot.CaptureScreenshot(Config.strScreenShotFolderPath, "doUserLoginByRole",this.driver);
+			HTMLReportGenerator.StepDetails("FAIL", "doUserLoginByRole", "Unable to login to the application", Config.strScreenShotFileName);
 		}
 	}
 		
@@ -52,6 +63,10 @@ public class LoginPage {
 		public void navigateToLoginPage(String strUrl)
 		{
 			driver.get(strUrl);
+			Config.strOp= "Status:=PASS,Method:=navigateToLoginPage,Parmeters:=strUrl"+strUrl+",Note:User is on login page";
+			Config.logger.info(Config.strOp);
+			Screenshot.CaptureScreenshot(Config.strScreenShotFolderPath, "navigateToLoginPage",this.driver);
+			HTMLReportGenerator.StepDetails("PASS", "navigateToLoginPage", "User is on login page", Config.strScreenShotFileName);
 		}
 
 }

@@ -11,11 +11,12 @@ import cucumber.ScenarioContext;
 import cucumber.TestContext;
 import enums.Context;
 import pageObjects.ManageCompanyPage;
+import utils.Config;
+import utils.HTMLReportGenerator;
+import utils.Screenshot;
 
 public class ManageCompanyPage {
 	private WebDriver driver;
-	TestContext testContext;
-	ScenarioContext scenarioContext;
 	
 	public ManageCompanyPage(WebDriver driver){
 		 this.driver = driver;
@@ -32,7 +33,7 @@ public class ManageCompanyPage {
 	private WebElement OBJ_COMPANY_SUBTYPE;
 	@FindBy(how = How.XPATH, using = "//input[@textboxname='address']//following-sibling::span[1]//child::textarea") 
 	private WebElement OBJ_COMPANY_ADDRESS;
-	@FindBy(how = How.XPATH, using = "//input[@textboxname='phone']//following-sibling::span[1]//child::input") 
+	@FindBy(how = How.XPATH, using = "//input[@name='phone']//preceding-sibling::input") 
 	private WebElement OBJ_COMPANY_PHONE;
 	@FindBy(how = How.XPATH, using = "//input[@name='email']") 
 	private WebElement OBJ_COMPANY_EMAIL;
@@ -40,7 +41,7 @@ public class ManageCompanyPage {
 	private WebElement OBJ_COMPANY_PAN;
 	@FindBy(how = How.XPATH, using = "//input[@name='tin']") 
 	private WebElement OBJ_COMPANY_TIN;
-	@FindBy(how = How.XPATH, using = "//input[@textboxname='mobile']//following-sibling::span[1]//child::input") 
+	@FindBy(how = How.XPATH, using = "//input[@name='mobile']//preceding-sibling::input")//"//input[@textboxname='mobile']//following-sibling::span[1]//child::input") 
 	private WebElement OBJ_COMPANY_MOBILE;
 	@FindBy(how = How.XPATH, using = "//input[@name='website']") 
 	private WebElement OBJ_COMPANY_WEBSITE;
@@ -54,10 +55,12 @@ public class ManageCompanyPage {
 	private WebElement OBJ_TOTAL_EMPLOYEE;
 	@FindBy(how = How.XPATH, using = "//span[contains(text(),'Save')]") 
 	private WebElement OBJ_SAVE_BUTTON;
-	@FindBy(how = How.XPATH, using = "//div[contains(text(), 'Tester16')]") 
+	@FindBy(how = How.XPATH, using = "//div[contains(text(), 'Teste77')]") 
 	private WebElement lnk_Newcompany;
 	@FindBy(how = How.XPATH, using = "//span[contains(text(), 'Destroy')]") 
 	private WebElement lnk_Delcompany;
+	@FindBy(how=How.XPATH,using="//span[@class='datagrid-row-expander datagrid-row-expand']//parent::div//parent::td//parent::tr[@id='datagrid-row-r1-1-0']//child::td//child::div//child::span[@class='datagrid-row-expander datagrid-row-expand']")
+	private WebElement OBJ_EDIT_BUTTON;
 		
 	public void ClickonNewButton() throws InterruptedException
 	{
@@ -66,10 +69,18 @@ public class ManageCompanyPage {
 			Thread.sleep(2000);
 			driver.switchTo().frame(0);
 			btn_company_new.click();
+			Config.strOp= "Status:=PASS,Method:=ClickonNewButton,Parmeters:=,Note:Able to click on new button";
+			Config.logger.info(Config.strOp);
+			Screenshot.CaptureScreenshot(Config.strScreenShotFolderPath, "ClickonNewButton",this.driver);
+			HTMLReportGenerator.StepDetails("PASS", "ClickonNewButton", "Successfully clicked on new button", Config.strScreenShotFileName);	
 		}
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
+			Config.strOp= "Status:=FAIL,Method:=ClickonNewButton,Parmeters:=,Note:Unable to click on new button";
+			Config.logger.info(Config.strOp);
+			Screenshot.CaptureScreenshot(Config.strScreenShotFolderPath, "ClickonNewButton",this.driver);
+			HTMLReportGenerator.StepDetails("FAIL", "ClickonNewButton", "Failed to clicked on new button", Config.strScreenShotFileName);	
 		}
 	}
 
@@ -262,23 +273,30 @@ public class ManageCompanyPage {
 	{
 		try
 		{
-			
 			OBJ_SAVE_BUTTON.click();
-			
+			Config.strOp= "Status:=PASS,Method:=ClickOnSaveButton,Parmeters:=,Note:Able to click on save button";
+			Config.logger.info(Config.strOp);
+			Screenshot.CaptureScreenshot(Config.strScreenShotFolderPath, "ClickOnSaveButton",this.driver);
+			HTMLReportGenerator.StepDetails("PASS", "ClickOnSaveButton", "Successfully clicked on save button", Config.strScreenShotFileName);	
 		}
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage());
+			Config.strOp= "Status:=FAIL,Method:=ClickOnSaveButton,Parmeters:=,Note:Unable to click on save button";
+			Config.logger.info(Config.strOp);
+			Screenshot.CaptureScreenshot(Config.strScreenShotFolderPath, "ClickOnSaveButton",this.driver);
+			HTMLReportGenerator.StepDetails("FAIL", "ClickOnSaveButton", "Failed to clicked on save button", Config.strScreenShotFileName);	
 		}
 	}
-	public String getCompanyName() {
-			//testContext.getScenarioContext().setContext(Context.COMPANY_NAME,"Tester16");
-		 return lnk_Newcompany.getText();
-		 }
+	
 	public void ClickOnDeleteButton() {
-		String strcompanyName = getCompanyName();
-		//testContext.getScenarioContext().getContext(Context.COMPANY_NAME);
+			
 		lnk_Delcompany.click();
+		
+	}
+	public void ClickOnEditButton() {
+		
+		OBJ_EDIT_BUTTON.click();
 		
 	}
 }
